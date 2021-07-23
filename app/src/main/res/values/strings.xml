@@ -1,3 +1,14 @@
 <resources>
-    <string name="app_name">pokemon</string>
+    <string name="app_name">Pokemon Alter Solution</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="search_title">Search for your POKEMON</string>
+    <string name="pokemon_finder">Pokédex</string>
+    <string name="pokemon_weight">Weight: %1$d </string>
+    <string name="pokemon_height">Height: %1$d</string>
+    <string name="pokemon_order">Order: %1$d </string>
+    <string name="pokemon_base_experience">XP: %1$d</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="mark_has_favourite">Mark has Favourite</string>
+    <string name="see_all_pokemon">See All Pokemon</string>
 </resources>
