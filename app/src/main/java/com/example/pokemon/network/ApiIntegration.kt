@@ -12,5 +12,5 @@ interface ApiIntegration {
     fun callPokemonAPI(@Path("name") name: String): Call<PokemonDetailsResponse>
 
     @GET("pokemon")
-   suspend fun callAllPokemonAPI(@Query("offset") offset: Int): PokemonResponse
+   suspend fun callAllPokemonAPI(@Query("offset" ) offset: Int): PokemonResponse
 }

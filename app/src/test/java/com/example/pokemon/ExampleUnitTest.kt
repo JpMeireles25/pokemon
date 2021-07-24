@@ -1,17 +1,21 @@
 package com.example.pokemon
 
+import android.content.Context
+import androidx.test.espresso.matcher.ViewMatchers
 import com.example.pokemon.network.ApiIntegration
-import com.example.pokemon.network.buildService
-import com.example.pokemon.viewModels.MainViewModel
+import kotlinx.coroutines.runBlocking
 import okhttp3.OkHttpClient
+import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
+import org.hamcrest.CoreMatchers
 import org.junit.After
 import org.junit.Test
-
 import org.junit.Assert.*
-import org.mockito.Mockito
+import org.junit.Before
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.InputStream
+import java.net.HttpURLConnection
 import java.util.concurrent.TimeUnit
 
 /**
@@ -26,43 +30,6 @@ class ExampleUnitTest {
     }
 }
 
-class CreditTest {
-    val mockWebServer = MockWebServer()
-
-    val client = OkHttpClient.Builder()
-        .connectTimeout(1, TimeUnit.SECONDS)
-        .readTimeout(1, TimeUnit.SECONDS)
-        .writeTimeout(1, TimeUnit.SECONDS)
-        .build()
-
-    val api = Retrofit.Builder()
-        .baseUrl(mockWebServer.url("/"))
-        .client(client)
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
-        .create(ApiIntegration::class.java)
-
-    val myApi =   buildService(ApiIntegration::class.java, BuildConfig.BASE_URL)
-
-    @After
-    fun tearDown() {
-        mockWebServer.shutdown()
-    }
-    @Test
-    fun `can get pokemon`() {
-
-        //mockWebServer.enqueue("discover-movies-200.json", 200)
-      /*  val mockedVieModel: MainViewModel = Mockito.mock(MainViewModel::class.java)
-
-
-        mockedVieModel.getPokemon("abra")
-        mockedVieModel.pokemonData.observeForever {
-            assertNotNull(it)
-            assertTrue(it.name == "abra")
-        }*/
 
 
 
-    }
-
-}

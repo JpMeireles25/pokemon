@@ -1,14 +1,16 @@
 package com.example.pokemon
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.pokemon.fragments.SearchFragment
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
 
-
+    var backEnable = true
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -43,18 +45,30 @@ class MainActivity : AppCompatActivity() {
         onBackPressed()
     }
 
-    fun noDetailsFragment(): Boolean{
-        val detailsFragment = supportFragmentManager.findFragmentByTag("detailsFragment")
-        return detailsFragment != null
+    fun showProgressBar() {
+        backEnable = false
+        progress_bar.visibility = View.VISIBLE
     }
 
-    override fun onBackPressed() {
-        val count = supportFragmentManager.backStackEntryCount
+    fun hideProgressBar() {
+        backEnable = true
+        progress_bar.visibility = View.GONE
+    }
 
-        if (count == 0) {
-            super.onBackPressed()
+
+    override fun onBackPressed() = try {
+        if (!backEnable) {
+            println("onBackPressed base !backEnable")
         } else {
-            supportFragmentManager.popBackStack()
+            val count = supportFragmentManager.backStackEntryCount
+
+            if (count == 0) {
+                super.onBackPressed()
+            } else {
+                supportFragmentManager.popBackStack()
+            }
         }
+    } catch (e: Exception) {
+        super.onBackPressed()
     }
 }

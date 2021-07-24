@@ -18,7 +18,7 @@ class Repository() {
     fun getPokemon(pokemonName: String, callback: Callback<PokemonDetailsResponse>) {
         val call = buildApiIntegration.callPokemonAPI(pokemonName);
         try {
-            val url = call.request().url().toString()
+            val url = call.request().url.toString()
             println("callx getPokemon url: $url")
             println("callx getPokemon url: $pokemonName")
             call.enqueue(callback)
@@ -28,19 +28,4 @@ class Repository() {
         }
 
     }
-
-   /* fun getAllPokemon(offset: Int, callback: Callback<PokemonResponse>) {
-        val call = buildApiIntegration.callAllPokemonAPI(offset);
-        try {
-            val url = call.request().url().toString()
-            println("callx getPokemon url: $url")
-            println("callx getPokemon url: $offset")
-            call.enqueue(callback)
-        } catch (t: Throwable) {
-            t.printStackTrace()
-            callback.onFailure(call, t)
-        }
-
-    }*/
-
 }

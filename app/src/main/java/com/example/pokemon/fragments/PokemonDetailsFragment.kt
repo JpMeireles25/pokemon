@@ -17,34 +17,20 @@ import com.example.pokemon.network.request.FavRequest
 import com.example.pokemon.network.response.pokemonDetailsResponse.Abilities
 import com.example.pokemon.network.response.pokemonDetailsResponse.PokemonDetailsResponse
 import com.example.pokemon.network.response.pokemonDetailsResponse.Stats
+import com.example.pokemon.utils.Event
 import com.example.pokemon.utils.sendPostFavouritePokemon
 import com.example.pokemon.utils.setImageFromUrl
 import com.example.pokemon.viewModels.MainViewModel
 import kotlinx.android.synthetic.main.fragment_pokemon_details.*
 
 
-class PokemonDetailsFragment : Fragment() {
+class PokemonDetailsFragment : BaseFragment() {
     private lateinit var viewModel: MainViewModel
-    val baseActivity by lazy {
-        activity as MainActivity
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
+    override val layout = R.layout.fragment_pokemon_details
 
     companion object {
         fun newInstance() =
             PokemonDetailsFragment()
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_pokemon_details, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -62,17 +48,19 @@ class PokemonDetailsFragment : Fragment() {
     }
 
     private fun useObservables(){
-        viewModel.pokemonData.observe(viewLifecycleOwner,object : Observer<PokemonDetailsResponse>{
-            override fun onChanged(pokemonDetails: PokemonDetailsResponse?) {
+        viewModel.getSelectedPokemon().observe(viewLifecycleOwner,object : Observer<Event<PokemonDetailsResponse>>{
+            override fun onChanged(pokemonDetails: Event<PokemonDetailsResponse>?) {
                 if (pokemonDetails != null) {
-                    updateUi(pokemonDetails)
+                val poke = pokemonDetails.getContentIfNotHandled()
+                    poke?.let { updateUi(it) }
                 }
             }
-
         })
     }
 
     private fun updateUi(pokemonDetails: PokemonDetailsResponse) {
+        hideProgressBar()
+        details_scroll_view.visibility = View.VISIBLE
         pokemon_name.text = pokemonDetails.name
 
         val weight = getString(R.string.pokemon_weight,pokemonDetails.weight)

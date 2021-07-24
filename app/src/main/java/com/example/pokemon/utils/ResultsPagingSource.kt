@@ -17,6 +17,7 @@ class ResultsPagingSource(val apiIntegration: ApiIntegration): PagingSource<Int,
             val response = apiIntegration.callAllPokemonAPI(nextPage)
             var nextPageNumber: Int? = null
             if(response.next != null){
+
                 val uri = Uri.parse(response.next)
                 val nextPageQuery = uri.getQueryParameter("offset")
                 nextPageNumber = nextPageQuery?.toInt()
