@@ -24,28 +24,35 @@ class PokemonSeeAllFragment :BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(baseActivity    ).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(baseActivity).get(MainViewModel::class.java)
+        showProgressBar()
         setStatsRv()
         initViewModel()
     }
 
-    private fun initViewModel(){
+    private fun initViewModel() {
+
         lifecycleScope.launchWhenCreated {
+            hideProgressBar()
             viewModel.getAllPokemon().collectLatest {
                 adapter.submitData(it)
             }
         }
     }
+
     private fun setStatsRv() {
-        adapter = SeeAllPokemonAdapter(object : SeeAllPokemonAdapter.SeeAllPokemonListener{
+        adapter = SeeAllPokemonAdapter(object : SeeAllPokemonAdapter.SeeAllPokemonListener {
             override fun onClick(name: String) {
-                viewModel.getPokemon(name, false)
-                baseActivity.replaceFragmentStackHistory(PokemonDetailsFragment.newInstance(),"detailsFragment")
                 showProgressBar()
+                viewModel.getPokemon(name, false)
+                baseActivity.replaceFragmentStackHistory(
+                    PokemonDetailsFragment.newInstance(),
+                    "detailsFragment"
+                )
             }
 
         })
-        all_pokemon_rv.layoutManager  = LinearLayoutManager(context)
+        all_pokemon_rv.layoutManager = LinearLayoutManager(context)
         all_pokemon_rv.adapter = adapter
     }
 
