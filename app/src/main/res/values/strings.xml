@@ -11,4 +11,5 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="mark_has_favourite">Mark has Favourite</string>
     <string name="see_all_pokemon">See All Pokemon</string>
+    <string name="search_your_pokemon">Search your pokemon</string>
 </resources>

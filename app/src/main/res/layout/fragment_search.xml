@@ -46,6 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="30dp"
                 android:imeOptions="actionSearch"
+                android:hint="@string/search_your_pokemon"
                 android:inputType="text" />
 
             <Button

@@ -35,7 +35,7 @@ class SearchFragment : BaseFragment() {
     private fun setListener(){
         searchEditText.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                val pokemonName = searchEditText.text.toString()
+                val pokemonName = searchEditText.text.toString().lowercase()
                 viewModel.getPokemon(pokemonName, true)
                 searchEditText.text.clear()
                 showProgressBar()
