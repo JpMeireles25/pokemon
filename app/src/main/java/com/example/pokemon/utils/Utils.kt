@@ -16,8 +16,6 @@ fun ImageView.setImageFromUrl(url: String) = try {
     e.printStackTrace()
 }
 
-public inline fun CharSequence.substring(startIndex: Int, endIndex: Int = length): String = subSequence(startIndex, endIndex).toString()
-
 // Event wraper class for mutableLiveData
 class Event<T>(content: T?) {
     private val mContent: T
@@ -50,7 +48,6 @@ fun String.getPicUrl(): String {
 
 fun Context.sendPostFavouritePokemon(favRequest: FavRequest){
     val buildService = buildService(FavIntegration::class.java, "https://webhook.site/")
-    //  println("reportEvent eventRequest $eventName ${Gson().toJson(eventRequest)}")
     buildService.event( favRequest).enqueue(object : Callback<Void> {
         override fun onResponse(call: Call<Void>, response: Response<Void>) {
             println("sendPostFavouritePokemon $favRequest onSuccess $response")
